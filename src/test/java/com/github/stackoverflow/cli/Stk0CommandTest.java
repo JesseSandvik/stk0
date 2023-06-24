@@ -20,7 +20,7 @@ public class Stk0CommandTest {
 
         try (ApplicationContext ctx = ApplicationContext.run(Environment.CLI, Environment.TEST)) {
 //            String[] args = new String[] { "-v" };
-            String[] args = new String[] {"search", "-q", "merge maps", "java", "--verbose"};
+            String[] args = new String[] {"search", "-q", "merge maps", "-t", "java", "--verbose"};
             PicocliRunner.run(Stk0Command.class, ctx, args);
             out.println(baos.toString());
 
