@@ -15,14 +15,16 @@ public class Stk0CommandTest {
     @Test
     public void testWithCommandLineOption() throws Exception {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream out = System.out;
         System.setOut(new PrintStream(baos));
 
         try (ApplicationContext ctx = ApplicationContext.run(Environment.CLI, Environment.TEST)) {
-            String[] args = new String[] { "-v" };
+//            String[] args = new String[] { "-v" };
+            String[] args = new String[] {"search", "-q", "merge maps", "java", "--verbose"};
             PicocliRunner.run(Stk0Command.class, ctx, args);
+            out.println(baos.toString());
 
-            // stk0
-            assertTrue(baos.toString().contains("Hi!"));
+            assertTrue(baos.toString().contains("Search command running..."));
         }
     }
 }
