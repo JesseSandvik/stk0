@@ -1,3 +1,7 @@
 micronaut:
   application:
     name: stk0
+
+stackoverflow:
+  api:
+    url: https://api.stackexchange.com/2.3

@@ -1,5 +1,7 @@
 package com.github.stackoverflow.cli.search;
 
+import com.github.stackoverflow.cli.api.StackoverflowHttpClient;
+import jakarta.inject.Inject;
 import picocli.CommandLine;
 
 @CommandLine.Command(name="search", description = "Search questions matching criteria.", mixinStandardHelpOptions = true)
@@ -17,8 +19,13 @@ final public class SearchCommand implements Runnable {
     ) String sortBy = "relevance";
 
     @CommandLine.Option(names = {"-v", "--verbose"}, description = "Print verbose output.") boolean verbose;
+    @Inject
+    StackoverflowHttpClient client;
     @Override
     public void run() {
-        System.out.println("Search command running...");
+        var response = client.search(query, tag, limit, sortBy);
+
+        response.items
+                .forEach(System.out::println);
     }
 }

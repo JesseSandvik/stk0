@@ -18,6 +18,8 @@ public class Stk0Command implements Runnable {
 
     public static void main(String[] args) throws Exception {
         PicocliRunner.run(Stk0Command.class, args);
+
+        System.exit(0);
     }
 
     public void run() {
