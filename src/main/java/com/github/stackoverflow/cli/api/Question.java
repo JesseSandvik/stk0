@@ -1,7 +1,9 @@
 package com.github.stackoverflow.cli.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.micronaut.core.annotation.Introspected;
 
+@Introspected
 final public class Question {
     public String title;
     public String link;

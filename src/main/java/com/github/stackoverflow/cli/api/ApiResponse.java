@@ -1,10 +1,12 @@
 package com.github.stackoverflow.cli.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.micronaut.core.annotation.Introspected;
 
 import java.util.Collections;
 import java.util.List;
 
+@Introspected
 final public class ApiResponse<T> {
     public List<Question> items = Collections.emptyList();
 

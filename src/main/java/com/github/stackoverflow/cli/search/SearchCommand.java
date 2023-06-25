@@ -1,5 +1,6 @@
 package com.github.stackoverflow.cli.search;
 
+import com.github.stackoverflow.cli.api.Question;
 import com.github.stackoverflow.cli.api.StackoverflowHttpClient;
 import jakarta.inject.Inject;
 import picocli.CommandLine;
@@ -25,7 +26,29 @@ final public class SearchCommand implements Runnable {
     public void run() {
         var response = client.search(query, tag, limit, sortBy);
 
-        response.items
+        response.items.stream()
+                .map(SearchCommand::formatQuestion)
                 .forEach(System.out::println);
+
+        if (verbose) {
+            System.out.printf(
+                    "\nItems size: %d | Quota max: %d | Quota remaining: %d | Has more: %s\n",
+                    response.items.size(),
+                    response.quotaMax,
+                    response.quotaRemaining,
+                    response.hasMore
+            );
+        }
+    }
+
+    static private String formatQuestion(final Question question) {
+        return CommandLine.Help.Ansi.AUTO.string(String.format(
+                "@|bold,fg(green) %s|@ %d|%d @|bold,fg(yellow) %s|@\n      %s",
+                question.isAnswered ? "✔" : " ",
+                question.score,
+                question.answerCount,
+                question.title,
+                question.link
+        ));
     }
 }
